@@ -17,26 +17,26 @@ typedef struct SparseMatrix {
 
 }SparseMatrix;
 
-SparseMatrix matrix_transpose(SparseMatrix a)
+SparseMatrix matrix_transpose(SparseMatrix *a)
 {
 	SparseMatrix b;
 	int bindex;
-	b.rows = a.rows;
-	b.cols = a.cols;
-	b.terms = a.terms;
+	b.rows = a->rows;
+	b.cols = a->cols;
+	b.terms = a->terms;
 
-	if (a.terms > 0)
+	if (a->terms > 0)
 	{
 		bindex = 0;
-		for (int c = 0; c < a.cols; c++)
+		for (int c = 0; c < a->cols; c++)
 		{
-			for (int i = 0; i < a.terms; i++)
+			for (int i = 0; i < a->terms; i++)
 			{
-				if (a.data[i].col == c)
+				if (a->data[i].col == c)
 				{
-					b.data[bindex].row = a.data[i].col;
-					b.data[bindex].col = a.data[i].row;
-					b.data[bindex].value = a.data[i].value;
+					b.data[bindex].row = a->data[i].col;
+					b.data[bindex].col = a->data[i].row;
+					b.data[bindex].value = a->data[i].value;
 					bindex++;
 
 				}
@@ -76,7 +76,7 @@ int main()
 
 	}
 	printf("The transposed matrix is : \n");
-	SparseMatrix trans = matrix_transpose(*m);
+	SparseMatrix trans = matrix_transpose(&(*m) );
 	matrix_print(trans);
 	printf("\n-------------------------------------\n");
 
